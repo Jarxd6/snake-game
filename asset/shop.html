@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Snake Shop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🛒 Snake Shop</h1>
+
+    <div class="coins-display">
+        Coins: <span id="coinsAmount">0</span>
+    </div>
+
+    <div class="shop-items">
+        <div class="shop-item">
+            <div class="color-preview" style="background-color: green;"></div>
+            <p>Classic Green</p>
+            <button class="buy-btn" data-color="green" data-price="0">Select</button>
+        </div>
+
+        <div class="shop-item">
+            <div class="color-preview" style="background-color: blue;"></div>
+            <p>Cool Blue</p>
+            <button class="buy-btn" data-color="blue" data-price="20">Buy for 20 coins</button>
+        </div>
+
+        <div class="shop-item">
+            <div class="color-preview" style="background-color: orange;"></div>
+            <p>Orange Flame</p>
+            <button class="buy-btn" data-color="orange" data-price="30">Buy for 30 coins</button>
+        </div>
+
+        <div class="shop-item">
+            <div class="color-preview" style="background-color: purple;"></div>
+            <p>Royal Purple</p>
+            <button class="buy-btn" data-color="purple" data-price="40">Buy for 40 coins</button>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <a href="../index.html" class="shop-button">⬅ Back to Game</a>
+    </div>
+
+    <!-- Modal Alert -->
+    <div id="modalAlert" class="modal">
+        <div class="modal-content">
+            <p id="modalMessage">Pesan</p>
+            <button id="modalClose">OK</button>
+        </div>
+    </div>
+
+    <script src="shop.js"></script>
+</body>
+</html>

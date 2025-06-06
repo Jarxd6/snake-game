@@ -1,32 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Snake Game</title>
-<link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Snake Game</h1>
-<canvas id="gameCanvas" width="600" height="400"></canvas>
+    <h1>🐍 Snake Game</h1>
 
-<div class="button-container">
-  <button id="playButton">Play</button>
-  <button id="restartButton" disabled>Restart</button>
-</div>
+    <canvas id="gameCanvas" width="600" height="400"></canvas>
 
-<!-- Arrow controls for mobile -->
-<div class="arrow-controls">
-  <div class="arrow-row">
-    <button id="upArrow" class="arrow-btn">↑</button>
-  </div>
-  <div class="arrow-row">
-    <button id="leftArrow" class="arrow-btn">←</button>
-    <button id="downArrow" class="arrow-btn">↓</button>
-    <button id="rightArrow" class="arrow-btn">→</button>
-  </div>
-</div>
+    <div class="button-container">
+        <button id="playButton">Play</button>
+        <button id="restartButton" disabled>Restart</button>
+        <a href="asset/shop.html" class="shop-button">Shop 🛒</a>
+    </div>
 
-<script src="script.js"></script>
+    <div class="arrow-controls">
+        <div class="arrow-row">
+            <button class="arrow-btn" id="arrowUp">↑</button>
+        </div>
+        <div class="arrow-row">
+            <button class="arrow-btn" id="arrowLeft">←</button>
+            <button class="arrow-btn" id="arrowDown">↓</button>
+            <button class="arrow-btn" id="arrowRight">→</button>
+        </div>
+    </div>
+
+    <!-- Modal Alert -->
+    <div id="modalAlert" class="modal">
+      <div class="modal-content">
+        <p id="modalMessage">Pesan</p>
+        <button id="modalClose">OK</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
