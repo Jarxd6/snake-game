@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Snake Game (index.html)",
+            "url": "file:///C:/Users/asus/Documents/snake-game/index.html",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
