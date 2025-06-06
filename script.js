@@ -15,6 +15,12 @@ let gameStarted = false;
 const playButton = document.getElementById('playButton');
 const restartButton = document.getElementById('restartButton');
 
+// Arrow buttons for mobile controls
+const upArrow = document.getElementById('upArrow');
+const downArrow = document.getElementById('downArrow');
+const leftArrow = document.getElementById('leftArrow');
+const rightArrow = document.getElementById('rightArrow');
+
 // Load high score from localStorage
 function loadHighScore() {
     const savedHighScore = localStorage.getItem('snakeHighScore');
@@ -28,7 +34,10 @@ function saveHighScore() {
 
 function startGame() {
     snake = [{ x: 160, y: 160 }, { x: 150, y: 160 }, { x: 140, y: 160 }];
-    food = { x: 420, y: 220 };
+    food = {
+        x: Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize,
+        y: Math.floor(Math.random() * (canvas.height / gridSize)) * gridSize
+    };
     direction = { x: gridSize, y: 0 };
     score = 0;
     isGameOver = false;
@@ -52,7 +61,6 @@ function endGame() {
         saveHighScore();
     }
 
-    // Enable restart button
     restartButton.disabled = false;
 
     drawGame();
@@ -61,13 +69,20 @@ function endGame() {
 function changeDirection(event) {
     if (isGameOver) return;
 
-    if (event.key === 'ArrowUp' && direction.y === 0) {
+    let key;
+    if (typeof event === 'string') {
+        key = event;  // For arrow button presses
+    } else {
+        key = event.key;
+    }
+
+    if (key === 'ArrowUp' && direction.y === 0) {
         direction = { x: 0, y: -gridSize };
-    } else if (event.key === 'ArrowDown' && direction.y === 0) {
+    } else if (key === 'ArrowDown' && direction.y === 0) {
         direction = { x: 0, y: gridSize };
-    } else if (event.key === 'ArrowLeft' && direction.x === 0) {
+    } else if (key === 'ArrowLeft' && direction.x === 0) {
         direction = { x: -gridSize, y: 0 };
-    } else if (event.key === 'ArrowRight' && direction.x === 0) {
+    } else if (key === 'ArrowRight' && direction.x === 0) {
         direction = { x: gridSize, y: 0 };
     }
 }
@@ -91,13 +106,20 @@ function eatFood() {
     const head = snake[0];
     if (head.x === food.x && head.y === food.y) {
         score += 10;
-        snake.push({}); // Add new segment
+        // Add new segment by duplicating last segment (will be repositioned next frame)
+        const lastSegment = snake[snake.length - 1];
+        snake.push({ x: lastSegment.x, y: lastSegment.y });
 
-        // Generate new food location
-        food = {
-            x: Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize,
-            y: Math.floor(Math.random() * (canvas.height / gridSize)) * gridSize
-        };
+        // Generate new food location that doesn't overlap with snake
+        let newFoodPosition;
+        do {
+            newFoodPosition = {
+                x: Math.floor(Math.random() * (canvas.width / gridSize)) * gridSize,
+                y: Math.floor(Math.random() * (canvas.height / gridSize)) * gridSize
+            };
+        } while (snake.some(segment => segment.x === newFoodPosition.x && segment.y === newFoodPosition.y));
+
+        food = newFoodPosition;
     }
 }
 
@@ -122,25 +144,25 @@ function gameLoop() {
 function drawGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw the snake
+    // Draw snake
     snake.forEach((segment, index) => {
         ctx.fillStyle = (index === 0) ? 'red' : 'green';
         ctx.fillRect(segment.x, segment.y, gridSize, gridSize);
     });
 
-    // Draw the food
+    // Draw food
     ctx.fillStyle = 'yellow';
     ctx.beginPath();
     ctx.arc(food.x + gridSize / 2, food.y + gridSize / 2, gridSize / 2, 0, Math.PI * 2);
     ctx.fill();
 
-    // Draw score and high score
+    // Draw scores
     ctx.fillStyle = 'white';
     ctx.font = '20px Arial';
     ctx.fillText('Score: ' + score, 10, 30);
     ctx.fillText('High Score: ' + highScore, 10, 60);
 
-    // Game Over message
+    // Game over message
     if (isGameOver) {
         ctx.fillStyle = 'white';
         ctx.font = '30px Arial';
@@ -151,22 +173,23 @@ function drawGame() {
     } else if (!gameStarted) {
         ctx.fillStyle = 'white';
         ctx.font = '30px Arial';
-        ctx.fillText(canvas.width / 2 - 120, canvas.height / 2);
+        ctx.fillText('Press Play to Start', canvas.width / 2 - 120, canvas.height / 2);
     }
 }
 
-// Event listener for keyboard input
+// Keyboard event listener
 window.addEventListener('keydown', changeDirection);
 
-// Button event listeners
-playButton.addEventListener('click', () => {
-    startGame();
-});
+// Arrow button event listeners (mobile controls)
+upArrow.addEventListener('click', () => changeDirection('ArrowUp'));
+downArrow.addEventListener('click', () => changeDirection('ArrowDown'));
+leftArrow.addEventListener('click', () => changeDirection('ArrowLeft'));
+rightArrow.addEventListener('click', () => changeDirection('ArrowRight'));
 
-restartButton.addEventListener('click', () => {
-    startGame();
-});
+// Play and restart buttons
+playButton.addEventListener('click', () => startGame());
+restartButton.addEventListener('click', () => startGame());
 
-// Initialize the game
+// Initialize
 loadHighScore();
 drawGame();

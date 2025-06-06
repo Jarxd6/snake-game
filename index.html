@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Snake Game</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Snake Game</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>Snake Game</h1>
-    <canvas id="gameCanvas" width="600" height="400"></canvas>
+<h1>Snake Game</h1>
+<canvas id="gameCanvas" width="600" height="400"></canvas>
 
-    <div class="button-container">
-        <button id="playButton">Play</button>
-        <button id="restartButton" disabled>Restart</button>
-    </div>
+<div class="button-container">
+  <button id="playButton">Play</button>
+  <button id="restartButton" disabled>Restart</button>
+</div>
 
-    <script src="script.js"></script>
+<!-- Arrow controls for mobile -->
+<div class="arrow-controls">
+  <div class="arrow-row">
+    <button id="upArrow" class="arrow-btn">↑</button>
+  </div>
+  <div class="arrow-row">
+    <button id="leftArrow" class="arrow-btn">←</button>
+    <button id="downArrow" class="arrow-btn">↓</button>
+    <button id="rightArrow" class="arrow-btn">→</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
